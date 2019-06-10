@@ -14,6 +14,8 @@
 		ED4A666A22AC32B200D08909 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED4A666822AC32B200D08909 /* LaunchScreen.storyboard */; };
 		ED4A667522AC32B200D08909 /* FoodTrakcerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4A667422AC32B200D08909 /* FoodTrakcerTests.swift */; };
 		ED4A668022AC4B9600D08909 /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4A667F22AC4B9600D08909 /* RatingControl.swift */; };
+		ED590B6F22AED5BC001E5CBF /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED590B6E22AED5BC001E5CBF /* SignupViewController.swift */; };
+		ED590B7122AEEF07001E5CBF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED590B7022AEEF07001E5CBF /* NetworkManager.swift */; };
 		EDC2E6E622ADC3BE00E59B09 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC2E6E522ADC3BE00E59B09 /* Meal.swift */; };
 		EDC2E6E822ADCA7300E59B09 /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC2E6E722ADCA7300E59B09 /* MealTableViewCell.swift */; };
 		EDC2E71822ADFC1F00E59B09 /* MealTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC2E71722ADFC1F00E59B09 /* MealTableViewController.swift */; };
@@ -41,6 +43,8 @@
 		ED4A667422AC32B200D08909 /* FoodTrakcerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTrakcerTests.swift; sourceTree = "<group>"; };
 		ED4A667622AC32B200D08909 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED4A667F22AC4B9600D08909 /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
+		ED590B6E22AED5BC001E5CBF /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		ED590B7022AEEF07001E5CBF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EDC2E6E522ADC3BE00E59B09 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		EDC2E6E722ADCA7300E59B09 /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
 		EDC2E71722ADFC1F00E59B09 /* MealTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewController.swift; sourceTree = "<group>"; };
@@ -86,11 +90,13 @@
 			isa = PBXGroup;
 			children = (
 				ED4A665F22AC32B100D08909 /* AppDelegate.swift */,
+				EDC2E71722ADFC1F00E59B09 /* MealTableViewController.swift */,
 				ED4A666122AC32B100D08909 /* MealViewController.swift */,
 				EDC2E6E522ADC3BE00E59B09 /* Meal.swift */,
 				EDC2E6E722ADCA7300E59B09 /* MealTableViewCell.swift */,
 				ED4A667F22AC4B9600D08909 /* RatingControl.swift */,
-				EDC2E71722ADFC1F00E59B09 /* MealTableViewController.swift */,
+				ED590B6E22AED5BC001E5CBF /* SignupViewController.swift */,
+				ED590B7022AEEF07001E5CBF /* NetworkManager.swift */,
 				ED4A666322AC32B100D08909 /* Main.storyboard */,
 				ED4A666622AC32B200D08909 /* Assets.xcassets */,
 				ED4A666822AC32B200D08909 /* LaunchScreen.storyboard */,
@@ -210,8 +216,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDC2E6E622ADC3BE00E59B09 /* Meal.swift in Sources */,
+				ED590B6F22AED5BC001E5CBF /* SignupViewController.swift in Sources */,
 				ED4A666222AC32B100D08909 /* MealViewController.swift in Sources */,
 				ED4A668022AC4B9600D08909 /* RatingControl.swift in Sources */,
+				ED590B7122AEEF07001E5CBF /* NetworkManager.swift in Sources */,
 				ED4A666022AC32B100D08909 /* AppDelegate.swift in Sources */,
 				EDC2E71822ADFC1F00E59B09 /* MealTableViewController.swift in Sources */,
 				EDC2E6E822ADCA7300E59B09 /* MealTableViewCell.swift in Sources */,

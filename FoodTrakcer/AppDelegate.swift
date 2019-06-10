@@ -16,6 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
+        if !UserDefaults.standard.bool(forKey: "hasSignedUp") {
+            UserDefaults.standard.set(false, forKey: "hasSignedUp")
+        }
+        
         return true
     }
 

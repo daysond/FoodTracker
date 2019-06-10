@@ -17,11 +17,23 @@ class MealTableViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = editButtonItem
+        presentSignUpScreen()
+//        NetworkManager().saveMeal(meal: Meal(name: "hello", photo: nil, rating: 3, cal: 100, mealDescription: "love it", id: 1, userid: 22)!) { (err) -> (Void) in
+//            print(err)
+//        }
         
         if let savedMeals = loadMeals() {
             meals += savedMeals
         } else {
             loadSampleMeals()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        if !hasSignedUp() {
+            
         }
     }
     
@@ -54,19 +66,6 @@ class MealTableViewController: UITableViewController {
         
     }
     
-    
-    // MARK: - Table view data source
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return meals.count
-    }
-    
     @IBAction func unwindToMealList(sender: UIStoryboardSegue) {
         
         
@@ -92,19 +91,35 @@ class MealTableViewController: UITableViewController {
         
     }
     
+    
+    
+    // MARK: - Table view data source
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return meals.count
+    }
+    
+    //MARK: PRIVATES
+
     private func loadSampleMeals() {
         
         let photo1 = UIImage(named: "meal1")
         let photo2 = UIImage(named: "meal1")
         
-        guard let meal1 = Meal(name: "meal1", photo: photo1, rating: 4) else {
-            fatalError("unable to ...")
-        }
-        guard let meal2 = Meal(name: "meal1", photo: photo2, rating: 3) else {
-            fatalError("unable to ...")
-        }
+//        guard let meal1 = Meal(name: "meal1", photo: photo1, rating: 4) else {
+//            fatalError("unable to ...")
+//        }
+//        guard let meal2 = Meal(name: "meal1", photo: photo2, rating: 3) else {
+//            fatalError("unable to ...")
+//        }
         
-        meals += [meal1, meal2]
+//        meals += [meal1, meal2]
         
     }
     
@@ -125,6 +140,32 @@ class MealTableViewController: UITableViewController {
         
     }
     
+    private func loadMeals() -> [Meal]? {
+        
+        guard let data = try? Data(contentsOf: Meal.archiveURL) else {
+            return nil
+        }
+        
+        guard let meals = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [Meal] else {
+            return nil
+        }
+        return meals
+        
+    }
+    
+    private func hasSignedUp() -> Bool {
+        return UserDefaults.standard.bool(forKey: "hasSignedUp")
+    }
+    
+    private func presentSignUpScreen() {
+        
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let signupScreen = storyboard.instantiateViewController(withIdentifier: "SignupScreen") as! SignupViewController
+        self.present(signupScreen, animated: true, completion: nil)
+        
+    }
+    
+    //MARK: TABLE VIEW DELEGATES
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? MealTableViewCell else {
@@ -138,21 +179,6 @@ class MealTableViewController: UITableViewController {
         
         return cell
     }
-    
-    private func loadMeals() -> [Meal]? {
-
-        guard let data = try? Data(contentsOf: Meal.archiveURL) else {
-            return nil
-        }
-        
-        guard let meals = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [Meal] else {
-            return nil
-        }
-        return meals
-    
-    }
-    
-    
     
     // Override to support conditional editing of the table view.
     
@@ -173,29 +199,6 @@ class MealTableViewController: UITableViewController {
     }
     
     
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
     
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }
