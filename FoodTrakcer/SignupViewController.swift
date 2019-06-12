@@ -13,14 +13,20 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var signupButton: UIButton!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var usernameTextField: UITextField!
-    var postData: [String: Any]!
-    var networkManager = NetworkManager()
+    
+    private var postData: [String: Any]!
+    private var networkManager = NetworkManager()
+    private var signupOrLoginSucceed: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        signupOrLoginSucceed = false
+        if let username = UserDefaults.standard.string(forKey: "username"), let password = UserDefaults.standard.string(forKey: "password") {
+            passwordTextField.text = password
+            usernameTextField.text = username
+        }
         
         
-        // Do any additional setup after loading the view.
     }
     @IBAction func logInButtonTapped(_ sender: UIButton) {
                 
@@ -28,44 +34,35 @@ class SignupViewController: UIViewController {
         
         networkManager.post(data: postData, toEndpoint: "/login") { (data, response, error) -> (Void) in
             
-            guard let data = data else {
-                self.presentAlertWith(title: "Failed", message: "Please try again!")
-                print("data error")
-                return
-            }
-            
-            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else {
-                self.presentAlertWith(title: "Failed", message: "Please try again!")
-                print("data not valid")
-                return
-            }
-            
             guard let response = response as? HTTPURLResponse else {
-                self.presentAlertWith(title: "Failed", message: "Please try again!")
                 print("response error")
                 return
             }
             
             guard response.statusCode == 200 else {
-                self.presentAlertWith(title: "Failed", message: "Please try again!")
                 print("status code: \(response.statusCode)")
                 return
             }
             
-            guard let userInfo = json as? [String: Any] else {
-                self.presentAlertWith(title: "Failed", message: "Please try again!")
+            guard let userInfo = self.networkManager.parseJSONData(data: data) else {
                 print("could not parsed json")
                 return
             }
             
-            print("succeed")
-            
+            self.signupOrLoginSucceed = true
             UserDefaults.standard.set(userInfo["username"], forKey: "username")
             UserDefaults.standard.set(userInfo["password"], forKey: "password")
             UserDefaults.standard.set(userInfo["token"], forKey: "token")
             UserDefaults.standard.set(true, forKey: "hasSignedUp" )
             
-            self.dismiss(animated: true, completion: nil)
+            
+            DispatchQueue.main.async {
+                if self.signupOrLoginSucceed {
+                    self.dismiss(animated: true, completion: nil)
+                }
+                self.presentAlertWith(title: "login fail", message: "try again")
+            
+            }
             
         }
         
@@ -113,6 +110,7 @@ class SignupViewController: UIViewController {
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         
         alert.addAction(action)
+        
         present(alert, animated: true, completion: nil)
         
     }
@@ -124,43 +122,43 @@ class SignupViewController: UIViewController {
         networkManager.post(data: postData, toEndpoint: "/signup") { (data, response, error) -> (Void) in
             
             guard let data = data else {
-                self.presentAlertWith(title: "Failed", message: "Please try again!")
                 print("data error")
                 return
             }
             
             guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else {
-                self.presentAlertWith(title: "Failed", message: "Please try again!")
                 print("data not valid")
                 return
             }
             
             guard let response = response as? HTTPURLResponse else {
-                self.presentAlertWith(title: "Failed", message: "Please try again!")
                 print("response error")
                 return
             }
             
             guard response.statusCode == 200 else {
-                self.presentAlertWith(title: "Failed", message: "Please try again!")
                 print("status code: \(response.statusCode)")
                 return
             }
             
             guard let userInfo = json as? [String: Any] else {
-                self.presentAlertWith(title: "Failed", message: "Please try again!")
                 print("could not parsed json")
                 return
             }
             
-            print("succeed")
-            
+            self.signupOrLoginSucceed = true
             UserDefaults.standard.set(userInfo["username"], forKey: "username")
             UserDefaults.standard.set(userInfo["password"], forKey: "password")
             UserDefaults.standard.set(userInfo["token"], forKey: "token")
             UserDefaults.standard.set(true, forKey: "hasSignedUp" )
             
-            self.dismiss(animated: true, completion: nil)
+            DispatchQueue.main.async {
+                if self.signupOrLoginSucceed {
+                    self.dismiss(animated: true, completion: nil)
+                }
+                self.presentAlertWith(title: "signup fail", message: "try again")
+                            }
+
             
         }
     }

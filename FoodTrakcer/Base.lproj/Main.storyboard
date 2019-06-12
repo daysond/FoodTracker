@@ -35,12 +35,18 @@
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="Rww-53-31R"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="brW-8l-Be2">
                                         <rect key="frame" x="0.0" y="82" width="398" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="yes"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="gKA-i1-DI4"/>
+                                        </connections>
                                     </textField>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="320" image="defaultPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="1LU-Bw-22b">
                                         <rect key="frame" x="39" y="123" width="320" height="320"/>
@@ -84,6 +90,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="calTextField" destination="mxx-AK-fj6" id="bBY-ez-eK0"/>
+                        <outlet property="descriptionTextField" destination="brW-8l-Be2" id="d2U-TP-JTl"/>
                         <outlet property="nameTextField" destination="XJS-va-V22" id="v38-ep-o9I"/>
                         <outlet property="photoImageView" destination="1LU-Bw-22b" id="dOq-wi-j2g"/>
                         <outlet property="ratingControl" destination="dav-Qz-mmn" id="tgV-du-89Z"/>

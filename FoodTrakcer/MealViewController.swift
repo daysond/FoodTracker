@@ -10,13 +10,16 @@ import UIKit
 import os.log
 
 class MealViewController: UIViewController {
-    @IBOutlet weak var saveButton: UIBarButtonItem!
     
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var ratingControl: RatingControl!
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var calTextField: UITextField!
+    @IBOutlet weak var descriptionTextField: UITextField!
     
     var meal: Meal?
+    var networkManager = NetworkManager()
     override func viewDidLoad() {
         super.viewDidLoad()
         updateSaveButtonStatus()
@@ -52,7 +55,23 @@ class MealViewController: UIViewController {
         let name = nameTextField.text ?? ""
         let photo = photoImageView.image
         let rating = ratingControl.rating
-//        meal = Meal(name: name, photo: photo, rating: rating)
+        let cal = calTextField.text
+        let description = descriptionTextField.text!
+        guard let calories = Int(cal!) as Int? else {
+            return
+        }
+        
+        if let meal = Meal(name: name, photo: photo, rating: rating, cal: calories, mealDescription: description, id: nil, userid: nil) {
+            self.meal = meal
+            networkManager.saveMeal(meal: meal) { (err) -> (Void) in
+                if let err = err {
+                    print(err)
+                }
+            }
+        }
+        
+
+        
         
     }
     
@@ -67,6 +86,7 @@ class MealViewController: UIViewController {
         imagePickerController.sourceType = .photoLibrary
         present(imagePickerController, animated: true, completion: nil)
     }
+    
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
         
         let isPresentingInAddMealMode = presentingViewController is UINavigationController
@@ -99,6 +119,7 @@ extension MealViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         updateSaveButtonStatus()
         navigationItem.title = textField.text
+        textField.resignFirstResponder()
     }
 }
 

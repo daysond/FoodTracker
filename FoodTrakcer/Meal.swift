@@ -32,8 +32,8 @@ class Meal: NSObject,NSCoding {
     var rating: Int
     var calories: Int
     var mealDescription: String
-    var id: Int
-    var userid: Int
+    var id: Int?
+    var userid: Int?
     
     static let documentDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     
@@ -45,7 +45,7 @@ class Meal: NSObject,NSCoding {
         static let rating = "rating"
     }
     
-    init?(name: String, photo: UIImage?, rating: Int, cal: Int, mealDescription: String, id: Int, userid: Int) {
+    init?(name: String, photo: UIImage?, rating: Int, cal: Int, mealDescription: String, id: Int?, userid: Int?) {
         
         guard !name.isEmpty else {
             return nil
